@@ -59,4 +59,4 @@ app.get("/api", (req,res) => {
 //   res.render('display', { data: JSON.stringify(data) });
 // });
 
-app.listen(PORT, () => console.log('running'));
+app.listen(PORT, '0.0.0.0', () => console.log('running'));
