@@ -3,7 +3,6 @@ const getYouTubeID = require('get-youtube-id');
 const { getSubtitles } = require('youtube-captions-scraper');
 const { GoogleGenerativeAI } = require("@google/generative-ai");
 const express = require("express");
-const rateLimit = require("express-rate-limit");
 const PORT = process.env.PORT || 3000;
 const API_KEY = process.env.gemAPIs;
 var dres;
@@ -12,12 +11,6 @@ var dres;
 
 const genAi = new GoogleGenerativeAI(API_KEY);
 const model = genAi.getGenerativeModel({ model: "gemini-1.5-flash"});
-
-const apiLimiter = rateLimit({
-  windowMS : 24 * 60 * 60 * 1000,
-  max: 100,
-  message: "Too many requests try again later",
-});
 
 async function fetchSubtitles(u,res) {
   try {
@@ -47,7 +40,6 @@ async function fetchSubtitles(u,res) {
 // }
 
 const app = express();
-app.use('/', apiLimiter);
 app.use(express.static('./public'));
 app.use(express.urlencoded({ extended: false }));
 
@@ -55,7 +47,7 @@ app.get("*", (req,res) => {
   res.sendFile(path.join(process.cwd(), 'public', 'index.html'));
 });
 
-app.get("/api", apiLimiter, (req,res) => {
+app.get("/api", (req,res) => {
   let { url } = req.query;
   fetchSubtitles(url,res);
   res.json(dres);
