@@ -104,7 +104,7 @@ document.addEventListener('DOMContentLoaded', (query) => {
 		const form = document.getElementById('form');
 		var input = document.getElementById('form-url');
 		var container = document.getElementById('data');
-		form.addEventListener('submit', async (e) => {
+		form.addEventListener('click', async (e) => {
 				e.preventDefault();
 				query = input.value.trim();
 				if (query) {
