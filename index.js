@@ -4,6 +4,7 @@ const { getSubtitles } = require('youtube-captions-scraper');
 const { GoogleGenerativeAI } = require("@google/generative-ai");
 const express = require("express");
 const rateLimit = require("express-rate-limit");
+const PORT = process.env.PORT || 3000;
 const API_KEY = process.env.gemAPIs;
 var dres;
 // https://youtu.be/N_sUsq_y10U?si=JXdwUBKxef7K3DiC
@@ -66,4 +67,4 @@ app.get("/api", apiLimiter, (req,res) => {
 //   res.render('display', { data: JSON.stringify(data) });
 // });
 
-app.listen(8000,"127.0.0.1",() => console.log(`http://127.0.0.1:8000`));
+app.listen(PORT, () => console.log('running'));
