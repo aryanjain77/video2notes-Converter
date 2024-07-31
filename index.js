@@ -50,8 +50,8 @@ app.use('/', apiLimiter);
 app.use(express.static('./public'));
 app.use(express.urlencoded({ extended: false }));
 
-app.get("/", (req,res) => {
-  res.sendFile(path.join(process.cwd(),"./public/index.html"));
+app.get("*", (req,res) => {
+  res.sendFile(path.join(process.cwd(), 'public', 'index.html'));
 });
 
 app.get("/api", apiLimiter, (req,res) => {
